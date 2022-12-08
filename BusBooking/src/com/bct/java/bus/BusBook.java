@@ -9,100 +9,7 @@ import java.util.Set;
 import com.bct.java.bus.management.BusRecordManagement;
 import com.bct.java.bus.model.Record;
 
-//private static int[] seats = new int[20];
-//public static void main(String[] args) {
-//	System.out.println("Welcome to the Bus reservation system!");
-//    System.out.println("Have a fabulous ride!");
-//    System.out.println();
-//    
-//    Scanner sc = new Scanner(System.in);
-//    int choice = 1;
-//
-//    System.out.print("Please enter your "
-//    		+ "choice\n1.window seat\n2.Aisle "
-//    		+ "seat\n0.Exit.\n");
-//    
-//    choice = sc.nextInt();
-//    while (choice != 0) {
-//        int seatnumber = 0;
-//        if (choice == 1) {
-//             seatnumber = bookWindow();
-//             if (seatnumber == -1) {
-//                  seatnumber = bookAisle();
-//                 if (seatnumber != -1) {
-//                     System. out.println("Sorry, we were "
-//                     		+ "not able to book a window seat. "
-//                     		+ "But do have an aisle seat.");
-//                     printBoardingPass(seatnumber);
-//                     }
-//                }
-//             else {
-//                 System.out.println("Congratulations, "
-//                 		+ "we have a window seat available!");
-//                 printBoardingPass(seatnumber);
-//                 }
-//             }
-//         else if (choice == 2) {
-//             seatnumber = bookAisle();
-//             if (seatnumber == -1) {
-//                 seatnumber = bookWindow();
-//                 if (seatnumber != -1) {
-//                     System.out.println("Sorry, we were "
-//                     		+ "not able to book an aisle seat. "
-//                     		+ "But do have a window seat.");
-//                     printBoardingPass(seatnumber);
-//                     }
-//                 }
-//             else {
-//                 System.out.println("Congratulations, we have "
-//                 		+ "an aisle seat available!");
-//                 printBoardingPass(seatnumber);
-//                 }
-//             }
-//         else {
-//             System.out.println("Invalid choice made. Please try again!");
-//             choice = 0;
-//             }
-//         if (seatnumber == -1) {
-//             System.out.println("We are sorry, there "
-//             		+ "are no window or aisle seats");
-//                     System.out.println();
-//             }
-//        System.out.print("Please enter your "
-//        		+ "choice\n1.window seat\n2.Aisle seat\n0.Exit.\n");
-//         choice = sc.nextInt();
-//         }
-//     }
-//private static void printBoardingPass(int seatNumber) {
-//	Date timenow = new Date();
-//	System.out.println();
-//	System.out.println("Date: "+timenow.toString());
-//	System.out.println("Boarding pass for seat number: "+seatNumber);
-//	System.out.println("Your Booking Successful!");
-//	System.out.println("Have a nice day");
-//	System.out.println();
-//	
-//}
-//
-//private static int bookWindow() {
-//	for(int i=0;i<10;i++) {
-//		if(seats[i]==0) {
-//			seats[i]=1;
-//			return i+1;
-//		}
-//	}
-//	return -1;
-//}
-//
-//private static int bookAisle() {
-//	for(int i=10;i<20;i++) {
-//		if(seats[i]==0) {
-//			seats[i]=1;
-//			return i+1;
-//		}
-//	}
-//	return -1;
-//}
+
 public class BusBook {
 	private static Set<Integer> seats = new HashSet<Integer>();
 	public static void main(String[] args) {
@@ -125,7 +32,7 @@ public class BusBook {
 	        	}
 	        	seats.remove(seatNumber);
 	        	Random rand = new Random();
-	        	int ticketNumber = rand.nextInt();
+	        	int ticketNumber = rand.nextInt(1000,10000);
 	        	System.out.println("Enter person's number:");
 	        	long contactNumber = input.nextLong();
 	        	input.nextLine(); 
@@ -134,10 +41,47 @@ public class BusBook {
 	        	record = new Record(seatNumber,ticketNumber,contactNumber,name);
 	        	hr.add(record);
 	        	System.out.println(record.toString());
+	        	System.out.println("Ticket number: "+record.getTicketNumber());
+	        	System.out.println("Save ticket number for future purpose");
 	        	break;
+	        case 2:
+	        	System.out.println("Enter ticket number and seat number to delete booking:");
+	        	int ticketNumb = input.nextInt();
+	        	
+	        	int seatnumber = input.nextInt();
+	        	
+				int seat = 0;
+	        	seat = hr.delete(ticketNumb,seatnumber);
+	        	seats.add(seat);
+	        	break;
+	        case 3:
+	        	System.out.println("Enter ticket number:");
+	        	int ticketnum = input.nextInt();
+	        	System.out.println("Enter seat number:");
+	        	int seatNu = input.nextInt();
+	        	hr.update(ticketnum,seatNu);
+	        	break;
+	        case 4:
+	        	System.out.println("Enter ticket number to find user details:");
+	        	int ticket = input.nextInt();
+	        	if(!hr.find(ticket)) {
+	        		System.out.println("Booking doesn't exist");
+	        	}
+	        	
+	        case 5:
+	        	hr.display();
+	        	break;
+	        	
 	        case 6:
 	        	System.out.println("Available seats:");
 	        	System.out.println(seats);
+	        	break;
+	        case 9:
+	        	System.out.println("\nThank you for using the program. Goodbye!\n");
+	        	System.exit(0);
+	        default:
+	        	System.out.println("\n Invalid input\n");
+	        	break;
 	        }
 			
 		}while(option!=9);
