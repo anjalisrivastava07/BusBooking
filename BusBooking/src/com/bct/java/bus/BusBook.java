@@ -12,6 +12,7 @@ import com.bct.java.bus.model.Record;
 
 public class BusBook {
 	private static Set<Integer> seats = new HashSet<Integer>();
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		seats.addAll( Arrays.asList(new Integer[] {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20}));
 
@@ -64,10 +65,12 @@ public class BusBook {
 	        case 4:
 	        	System.out.println("Enter ticket number to find user details:");
 	        	int ticket = input.nextInt();
-	        	if(!hr.find(ticket)) {
+	        	System.out.println();
+	        	int seatnum = input.nextInt();
+	        	if(!hr.find(seatnum)) {
 	        		System.out.println("Booking doesn't exist");
 	        	}
-	        	
+	        	break;
 	        case 5:
 	        	hr.display();
 	        	break;

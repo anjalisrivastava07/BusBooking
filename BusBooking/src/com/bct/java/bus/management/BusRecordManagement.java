@@ -7,12 +7,9 @@ import com.bct.java.bus.model.Record;
 
 public class BusRecordManagement {
 	LinkedList<Record> list;
-	
-
 	public BusRecordManagement() {
 		list = new LinkedList<>();
 	}
-	
 	public void add(Record record) {
 		if (!find(record.getSeatNumber())) {
             list.add(record);
@@ -54,6 +51,7 @@ public class BusRecordManagement {
 		}
 		return null;
 	}
+	@SuppressWarnings("resource")
 	public void update(int ticketNumber,int seatNumber) {
 		Scanner input = new Scanner(System.in);
 		if(find(seatNumber)) {
